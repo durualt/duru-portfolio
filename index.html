@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light" data-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duru Altınok | Portfolyo</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=12">
+</head>
+<body>
+
+    <!-- Wallpaper katmanı (parallax için ayrı div) -->
+    <div id="wallpaper-bg" class="wallpaper-bg"></div>
+
+    <!-- Yıldız izi (cursor) -->
+    <div id="cursor-trail" class="cursor-trail" aria-hidden="true"></div>
+
+    <!-- Ortam yaprakları (sürekli düşen petallar) -->
+    <div id="ambient-petals" class="ambient-petals" aria-hidden="true"></div>
+
+    <!-- ========== BOOT EKRANI (sinematik atmosfer) ========== -->
+    <div id="boot-screen" class="boot-screen">
+        <!-- Köşelerde cam-arkası ışık lekeleri -->
+        <div class="boot-blob blob-1"></div>
+        <div class="boot-blob blob-2"></div>
+        <div class="boot-blob blob-3"></div>
+        <!-- Hareketli parçacık katmanı (JS dolduruyor) -->
+        <div class="boot-particles" id="boot-particles" aria-hidden="true"></div>
+
+        <div class="boot-content">
+            <div class="boot-logo">
+                <!-- Çiçek bahçesi: tohumdan çiçeğe -->
+                <div class="flower-garden">
+                    <div class="garden-soil"></div>
+                    <div class="garden-stem" id="garden-stem"></div>
+                    <div class="garden-leaf garden-leaf-1"></div>
+                    <div class="garden-leaf garden-leaf-2"></div>
+                    <div class="garden-bud" id="garden-bud">🌱</div>
+                    <div class="garden-bloom" id="garden-bloom">🌸</div>
+                    <span class="garden-sparkle s1">✨</span>
+                    <span class="garden-sparkle s2">✨</span>
+                    <span class="garden-sparkle s3">🦋</span>
+                </div>
+            </div>
+            <h1 class="boot-title">Duru OS</h1>
+            <p class="boot-subtitle" data-i18n="boot.subtitle">v1.0 — Portfolyo Sürümü</p>
+            <div class="boot-progress-container">
+                <div class="boot-progress-bar">
+                    <div class="boot-progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="boot-status" id="boot-status">Sistem başlatılıyor...</p>
+            </div>
+            <button id="boot-start" class="boot-start hidden">
+                <span data-i18n="boot.start">Masaüstüne geç</span>
+                <span class="boot-arrow">→</span>
+            </button>
+        </div>
+        <p class="boot-footer">© 2026 Duru Altınok</p>
+    </div>
+
+    <!-- ========== MASAÜSTÜ ========== -->
+    <div id="desktop" class="desktop hidden">
+
+        <!-- Üst Menü Çubuğu -->
+        <header class="menu-bar">
+            <div class="menu-left">
+                <span class="menu-logo">◉</span>
+                <span class="menu-item active">Finder</span>
+
+                <!-- Düzen menüsü (ikon boyutu - erişilebilirlik) -->
+                <div class="menu-dropdown-wrap">
+                    <span class="menu-item" data-menu="edit" data-i18n="menu.edit">Düzen</span>
+                    <div class="menu-dropdown" data-menu-content="edit">
+                        <div class="dropdown-label" data-i18n="edit.iconsize">İkon Boyutu</div>
+                        <div class="dropdown-action" data-action="size-small">
+                            <span class="dd-text">🔹 <span data-i18n="edit.size.small">Küçük</span></span>
+                            <span class="dd-check check-size-small">✓</span>
+                        </div>
+                        <div class="dropdown-action" data-action="size-normal">
+                            <span class="dd-text">🔸 <span data-i18n="edit.size.normal">Normal</span></span>
+                            <span class="dd-check check-size-normal">✓</span>
+                        </div>
+                        <div class="dropdown-action" data-action="size-large">
+                            <span class="dd-text">🔶 <span data-i18n="edit.size.large">Büyük</span></span>
+                            <span class="dd-check check-size-large">✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Görünüm menüsü (tema + dil) -->
+                <div class="menu-dropdown-wrap">
+                    <span class="menu-item" data-menu="view" data-i18n="menu.view">Görünüm</span>
+                    <div class="menu-dropdown" data-menu-content="view">
+                        <div class="dropdown-label" data-i18n="view.theme">Tema</div>
+                        <div class="dropdown-action" data-action="theme-light">
+                            <span class="dd-text">☀️ <span data-i18n="view.light">Aydınlık</span></span>
+                            <span class="dd-check check-light">✓</span>
+                        </div>
+                        <div class="dropdown-action" data-action="theme-dark">
+                            <span class="dd-text">🌙 <span data-i18n="view.dark">Karanlık</span></span>
+                            <span class="dd-check check-dark">✓</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-label" data-i18n="view.lang">Dil</div>
+                        <div class="dropdown-action" data-action="lang-tr">
+                            <span class="dd-text">🇹🇷 Türkçe</span>
+                            <span class="dd-check check-tr">✓</span>
+                        </div>
+                        <div class="dropdown-action" data-action="lang-en">
+                            <span class="dd-text">🇬🇧 English</span>
+                            <span class="dd-check check-en">✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yardım menüsü (kadın emojisi + mail) -->
+                <div class="menu-dropdown-wrap">
+                    <span class="menu-item" data-menu="help" data-i18n="menu.help">Yardım</span>
+                    <div class="menu-dropdown help-dropdown" data-menu-content="help">
+                        <div class="help-content">
+                            <button class="help-emoji" id="help-emoji-btn" title="Mail at" aria-label="Mail at">
+                                👩‍💻
+                            </button>
+                            <p class="help-text">
+                                <strong data-i18n="help.q">Sorun mu var?</strong><br>
+                                <span data-i18n="help.cta">Bana mail at!</span>
+                            </p>
+                            <button class="btn-primary help-mail-btn" id="help-mail-btn">
+                                <span data-i18n="help.btn">✉️ Mail gönder</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-right">
+                <button id="finder-toggle" class="icon-btn" title="Finder">🗂️</button>
+                <button id="mute-toggle" class="icon-btn" title="Ses">🔊</button>
+                <span class="menu-item">🔋 87%</span>
+                <span class="menu-item" id="clock">--:--</span>
+            </div>
+        </header>
+
+        <!-- Yıldızlar (sadece karanlık modda görünür) -->
+        <div class="sky-canvas">
+            <div class="stars" aria-hidden="true"></div>
+        </div>
+
+        <!-- Tema değişim göstergesi (ekranın ortasından iniyor) -->
+        <div id="theme-indicator" class="theme-indicator hidden" aria-hidden="true">
+            <div class="theme-indicator-icon">☀️</div>
+            <div class="theme-indicator-text">
+                <div class="theme-indicator-label" data-i18n="theme.label">Tema</div>
+                <div class="theme-indicator-mode" id="theme-indicator-mode">Aydınlık</div>
+            </div>
+        </div>
+
+        <!-- Masaüstü içeriği -->
+        <main class="desktop-area">
+
+            <!-- İkonlar -->
+            <!-- İkonlar — ekranın ortasında yatay olarak dağıtılmış -->
+            <div class="desktop-icon" data-window="about"
+                 style="top: 16%; left: 34%; --rot: -2deg;">
+                <div class="icon-image"><span class="icon-emoji">📁</span></div>
+                <span class="icon-label" data-i18n="icon.about">Hakkımda</span>
+            </div>
+            <div class="desktop-icon featured" data-window="education"
+                 style="top: 14%; left: 52%; --rot: 2deg;">
+                <div class="icon-image"><span class="icon-emoji">🎓</span></div>
+                <span class="icon-label" data-i18n="icon.education">Eğitim</span>
+            </div>
+            <div class="desktop-icon" data-window="projects"
+                 style="top: 18%; left: 64%; --rot: 1.5deg;">
+                <div class="icon-image"><span class="icon-emoji">💼</span></div>
+                <span class="icon-label" data-i18n="icon.projects">Projelerim</span>
+                <span class="badge">3</span>
+            </div>
+            <div class="desktop-icon" data-window="skills"
+                 style="top: 52%; left: 30%; --rot: -3deg;">
+                <div class="icon-image"><span class="icon-emoji">⚙️</span></div>
+                <span class="icon-label" data-i18n="icon.skills">Yetenekler</span>
+            </div>
+            <div class="desktop-icon featured" data-window="resume"
+                 style="top: 55%; left: 48%; --rot: -1.5deg;">
+                <div class="icon-image"><span class="icon-emoji">📄</span></div>
+                <span class="icon-label">CV.pdf</span>
+            </div>
+            <div class="desktop-icon" data-window="blog"
+                 style="top: 55%; left: 62%; --rot: 2.5deg;">
+                <div class="icon-image"><span class="icon-emoji">📝</span></div>
+                <span class="icon-label">Blog</span>
+            </div>
+
+            <!-- Sticky Note 1 (sol üst — pastel pembe) -->
+            <div class="sticky-note sticky-pink"
+                 style="top: 6%; left: 3%; --rot: -4deg;">
+                <p class="sticky-title" data-i18n="sticky1.title">Hoş geldin!</p>
+                <p class="sticky-text" data-i18n-html="sticky1.text">Ben Duru — bu masaüstüne hoş geldin. İkonlara <b>çift tıklayarak</b> gez.</p>
+            </div>
+            <!-- Sticky Note 2 (pastel lila) -->
+            <div class="sticky-note sticky-lilac"
+                 style="top: 30%; left: 11%; --rot: 3deg;">
+                <p class="sticky-title" data-i18n="sticky2.title">İpucu</p>
+                <p class="sticky-text" data-i18n-html="sticky2.text">Boş bir alana <b>sağ tıklayarak</b> tema ve dili değiştirebilirsin 🌗 · Arama için <b>Ctrl/⌘+K</b></p>
+            </div>
+
+            <!-- "Şu an çalışıyor" widget'ı -->
+            <div class="now-working">
+                <div class="nw-header">
+                    <span class="nw-dot"></span>
+                    <span class="nw-title" data-i18n="nw.title">Şu an çalışıyor</span>
+                </div>
+                <p class="nw-project" data-i18n="nw.project">Full-Stack Portfolyo</p>
+                <p class="nw-stack">HTML · CSS · JS · PHP · MySQL</p>
+            </div>
+
+            <!-- Today widget (Şu an çalışıyor'un üstünde) -->
+            <div class="today-widget" id="today-widget">
+                <div class="today-bar" data-i18n="today.label">BUGÜN</div>
+                <div class="today-main">
+                    <div class="today-day-name" id="today-day-name">Pazartesi</div>
+                    <div class="today-num-row">
+                        <span class="today-num" id="today-num">11</span>
+                        <span class="today-month" id="today-month">May</span>
+                    </div>
+                </div>
+                <div class="today-extras">
+                    <div class="today-row">☕ <span data-i18n="today.coffee">3. kahve</span></div>
+                    <div class="today-row">💡 <span id="today-quote">Kod yaz, kahve iç</span></div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <!-- Pencere konteyneri -->
+        <div id="windows-container" class="windows-container"></div>
+
+        <!-- İletişim Pop-up'ı (gerçek form — AJAX ile contact.php'e gider) -->
+        <aside id="contact-popup" class="contact-popup hidden">
+            <button class="popup-close" id="popup-close" aria-label="Kapat">×</button>
+            <div class="popup-header">
+                <div class="popup-avatar">DA</div>
+                <div>
+                    <h3 class="popup-name">Duru Altınok <span class="wave-emoji">👋</span></h3>
+                    <p class="popup-role" data-i18n="popup.role">Full-Stack Developer · Öğrenci</p>
+                </div>
+            </div>
+            <ul class="popup-info">
+                <li><span class="popup-icon">📧</span> duru.altinok2004@gmail.com</li>
+                <li><span class="popup-icon">📍</span> <span data-i18n="popup.location">İstanbul, Türkiye</span></li>
+            </ul>
+
+            <!-- Hızlı iletişim formu — AJAX ile DB'ye kaydedilir -->
+            <form id="contact-form" class="contact-form" novalidate>
+                <input type="text" name="name" placeholder="Adın *" required
+                       minlength="2" maxlength="100" autocomplete="name">
+                <input type="email" name="email" placeholder="E-postan *" required
+                       autocomplete="email">
+                <input type="text" name="subject" placeholder="Konu (ops.)" maxlength="200">
+                <textarea name="body" placeholder="Mesajın *" required minlength="5" rows="3" maxlength="5000"></textarea>
+                <button type="submit" class="contact-form-btn">
+                    <span class="btn-label" data-i18n="contact.send">Gönder ✉️</span>
+                </button>
+                <div class="contact-form-feedback" id="contact-form-feedback" role="status" aria-live="polite"></div>
+            </form>
+
+            <div class="popup-socials">
+                <a href="https://github.com/durualt" target="_blank" rel="noopener noreferrer"
+                   class="popup-social" title="GitHub">🐙</a>
+                <a href="https://www.linkedin.com/in/duru-altinok/" target="_blank" rel="noopener noreferrer"
+                   class="popup-social" title="LinkedIn">🔗</a>
+                <a href="mailto:duru.altinok2004@gmail.com" class="popup-social" title="Mail">✉️</a>
+            </div>
+        </aside>
+        <button id="contact-reopen" class="contact-reopen hidden" title="İletişim">👋</button>
+
+        <!-- Context Menu -->
+        <div id="context-menu" class="context-menu hidden">
+            <div class="ctx-item" data-action="toggle-theme">
+                <span class="ctx-icon">🌗</span>
+                <span class="ctx-text" data-i18n="ctx.theme">Tema Değiştir</span>
+                <span class="ctx-hint" id="ctx-theme-hint"></span>
+            </div>
+            <div class="ctx-item" data-action="toggle-lang">
+                <span class="ctx-icon">🌐</span>
+                <span class="ctx-text" data-i18n="ctx.lang">Dili Değiştir</span>
+                <span class="ctx-hint" id="ctx-lang-hint"></span>
+            </div>
+            <div class="ctx-divider"></div>
+            <div class="ctx-item" data-action="spotlight">
+                <span class="ctx-icon">🔍</span>
+                <span class="ctx-text" data-i18n="ctx.search">Ara</span>
+                <span class="ctx-hint">⌘K</span>
+            </div>
+            <div class="ctx-item" data-action="refresh">
+                <span class="ctx-icon">🔄</span>
+                <span class="ctx-text" data-i18n="ctx.refresh">Masaüstünü Yenile</span>
+            </div>
+            <div class="ctx-divider"></div>
+            <div class="ctx-item" data-action="about">
+                <span class="ctx-icon">ℹ️</span>
+                <span class="ctx-text" data-i18n="ctx.about">Duru OS Hakkında</span>
+            </div>
+        </div>
+
+        <!-- Spotlight -->
+        <div id="spotlight" class="spotlight hidden">
+            <div class="spotlight-modal">
+                <div class="spotlight-input-row">
+                    <span class="spotlight-icon">🔍</span>
+                    <input type="text" id="spotlight-input"
+                           autocomplete="off" spellcheck="false"
+                           data-i18n-placeholder="spotlight.placeholder"
+                           placeholder="Uygulama, sayfa veya komut ara...">
+                </div>
+                <div class="spotlight-results" id="spotlight-results"></div>
+            </div>
+        </div>
+
+        <!-- Bildirim merkezi -->
+        <div id="notifications" class="notifications-stack"></div>
+
+        <!-- Alt Dock (her ikonun altında ne yaptığı yazıyor) -->
+        <footer class="dock">
+            <div class="dock-item" data-window="about">
+                <span class="dock-emoji">👤</span>
+                <span class="dock-label" data-i18n="dock.about">Hakkımda</span>
+            </div>
+            <div class="dock-item" data-window="projects">
+                <span class="dock-emoji">💼</span>
+                <span class="dock-label" data-i18n="dock.projects">Projeler</span>
+            </div>
+            <div class="dock-item" data-window="skills">
+                <span class="dock-emoji">⚙️</span>
+                <span class="dock-label" data-i18n="dock.skills">Yetenekler</span>
+            </div>
+            <div class="dock-item" data-window="terminal">
+                <span class="dock-emoji">⌨️</span>
+                <span class="dock-label" data-i18n="dock.terminal">Terminal</span>
+            </div>
+            <div class="dock-divider"></div>
+            <a href="https://github.com/durualt" target="_blank" rel="noopener noreferrer"
+               class="dock-item dock-link" title="GitHub'da gör">
+                <span class="dock-emoji">🐙</span>
+                <span class="dock-label">GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/duru-altinok/" target="_blank" rel="noopener noreferrer"
+               class="dock-item dock-link" title="LinkedIn profili">
+                <span class="dock-emoji">🔗</span>
+                <span class="dock-label">LinkedIn</span>
+            </a>
+            <div class="dock-divider"></div>
+            <div class="dock-item" data-window="contact">
+                <span class="dock-emoji">✉️</span>
+                <span class="dock-label" data-i18n="dock.contact">İletişim</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
