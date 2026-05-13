@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+error_log
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Build / dependencies (gelecek için)
+node_modules/
+vendor/
+
+# Hassas — eğer üretim için ayrı bir config dosyası kullanırsan
+config/database.local.php
+config/database.live.php
+
+# Geçici
+*.tmp
+*.bak
+
+# Claude Code session cache (CLAUDE.md repo'ya gidebilir, isteğe bağlı)
+.claude/
